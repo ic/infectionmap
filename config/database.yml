@@ -21,10 +21,12 @@ test:
   database: db/test.sqlite3
 
 production:
+  host: 127.0.0.1
+  port: 3306
   adapter: mysql2
   pool: 5
   timeout: 5000
   database: crowdy
-  user: crowdy
+  username: crowdy
   password: crowdy
   
