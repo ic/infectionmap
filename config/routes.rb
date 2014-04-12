@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
 
-  post 'event' => 'event#create'
+  get  'events' => 'event#index'
+  post 'event'  => 'event#create'
 
   root 'home#index'
 

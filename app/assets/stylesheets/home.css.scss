@@ -4,6 +4,7 @@
 
 body {
 	background-color:#1E468B;
+	color: white;
 }
 
 h1 {
@@ -16,5 +17,18 @@ div {
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
+}
+
+table {
+	width: 100%;
+}
+
+table td {
+	text-align: center;
+}
+
+table tr:hover {
+	background-color: #DB3025;
+	border: 0;
 }
 
