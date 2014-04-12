@@ -1,7 +1,14 @@
 %h1
   インフルエンス
 
+%div{id: :result}
+
 %div{id: 'map-canvas'}
+%form{action: 'event', method: :post}
+  %input{type: :hidden, name: :event_type, value: :influenza}
+  %input{type: :hidden, name: :lat, value: '', id: :latitude}
+  %input{type: :hidden, name: :lon, value: '', id: :longitude}
+  %input{type: :submit, value: 'インフルエンザをひっちゃった', id: 'coming-out'}
 %hr
 %ul
   %li
