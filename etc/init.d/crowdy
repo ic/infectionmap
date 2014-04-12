@@ -1,0 +1,103 @@
+#! /bin/sh
+### BEGIN INIT INFO
+# Provides:		crowdy
+# Required-Start:	$syslog $remote_fs
+# Required-Stop:	$syslog $remote_fs
+# Should-Start:		$local_fs
+# Should-Stop:		$local_fs
+# Default-Start:	2 3 4 5
+# Default-Stop:		0 1 6
+# Short-Description:	Crowdy's Backend
+# Description:		Basic script borrowed somehwere else.
+### END INIT INFO
+
+if [ -f /etc/crowdy/production ]; then
+        CROWDY_ENV=production
+elif [ -f /etc/crowdy/development ]; then
+        CROWDY_ENV=development
+elif [ -f "/etc/crowdy/test" ]; then
+        CROWDY_ENV=test
+else
+        echo "WARNING No environment specified with a file in /etc/crowdy, defaulting to 'development' mode."
+        CROWDY_ENV=development
+fi
+
+CROWDY_HOME=/home/crowdy/crowdy
+
+CONFIG_FILE=$CROWDY_HOME/unicorn.rb
+
+PID_DIR=/var/lock/crowdy
+mkdir -p $PID_DIR
+PIDFILE=$PID_DIR/unicorn.pid
+
+PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
+DAEMON="/usr/local/bin/bundle exec unicorn --daemonize"
+DAEMON_ARGS="--config-file $CONFIG_FILE --env $CROWDY_ENV"
+
+set -e
+
+case "$1" in
+  start)
+        if [ -f "$PIDFILE" ]
+        then
+          echo "Crowdy is already running (`cat $PIDFILE`)" && exit 1
+        else
+          echo -n "Starting Crowdy (Unicorn): "
+          cd $CROWDY_HOME
+          if $DAEMON $DAEMON_ARGS
+          then
+          	echo "Crowdier."
+          else
+            if [ -f $PIDFILE ]; then
+	      rm $PIDFILE
+            fi
+            echo "failed"
+          fi
+        fi
+	;;
+  stop)
+	echo -n "Stopping Crowdy (Unicorn): "
+	if [ ! -f $PIDFILE ]
+	then
+		echo "no PID file, can't stop or not running"
+		exit 3
+	fi
+	if kill `cat $PIDFILE`
+	then
+		echo "Crowdier."
+	else
+		echo "failed"
+	fi
+	rm -f $PIDFILE
+	;;
+
+  restart|force-reload)
+	${0} stop
+	${0} start
+	;;
+
+  status)
+	echo -n "Crowdy (Unicorn) is "
+	if [ ! -f $PIDFILE ]
+	then
+		echo "not running"
+		exit 2
+	fi
+        pid=`cat $PIDFILE`
+	if kill -0 $pid
+	then
+		echo "running"
+	else
+		echo "not running"
+		exit 1
+	fi
+	;;
+
+  *)
+	echo "Usage: /etc/init.d/crowdy {start|stop|restart|force-reload}" >&2
+	exit 1
+	;;
+esac
+
+exit 0
+
