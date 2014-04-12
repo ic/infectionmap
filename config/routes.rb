@@ -1,5 +1,6 @@
 Rails.application.routes.draw do
 
+  post 'event' => 'event#create'
 
   root 'home#index'
 
