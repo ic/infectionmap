@@ -24,8 +24,10 @@ gem 'spring',        group: :development
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
-# Use unicorn as the app server
-# gem 'unicorn'
+group :production do
+  gem 'unicorn'
+  gem 'mysql2'
+end
 
 # Use Capistrano for deployment
 # gem 'capistrano-rails', group: :development
