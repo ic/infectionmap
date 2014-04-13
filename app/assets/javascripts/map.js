@@ -1,18 +1,18 @@
 /**
  */
-var wpsp = wpsp || {};
+var crowdy = crowdy || {};
 
 /**
  * Map
  */
-wpsp.map = wpsp.map || function() {
+crowdy.map = crowdy.map || function() {
   this.root = {};
   this.dataServer = window.location.protocol + "//" + window.location.host;
   this.panes = {};
   this.heatMapCache = {};
 };
 
-wpsp.map.prototype.buildMap = function(options) {
+crowdy.map.prototype.buildMap = function(options) {
   var mapdiv = document.getElementById("map-canvas");
   var map = new google.maps.Map(mapdiv, options || {});
 
@@ -28,7 +28,7 @@ wpsp.map.prototype.buildMap = function(options) {
   return map;
 };
 
-wpsp.map.prototype.init = function(center) {
+crowdy.map.prototype.init = function(center) {
   var mapOptions = {
     center: center, //new google.maps.LatLng(35.632291, 139.881371), // Tokyo Disney Land
     zoom: 15,
@@ -43,52 +43,50 @@ wpsp.map.prototype.init = function(center) {
   var rootMap = this.buildMap(mapOptions);
 
   var me = this;
-  var update = function () {
-    me.updateMap(me.dataServer, rootMap);
-  }
+  var updateMap = function() {
+    var targetURL = me.dataServer + "/events.json";
+    var northEast = this.getBounds().getNorthEast();
+    var southWest = this.getBounds().getSouthWest();
+    var data = {
+      lon_r: [ southWest.lng(), northEast.lng() ],
+      lat_r: [ southWest.lat(), northEast.lat() ],
+    };
+    if (me.dataServer != (window.location.protocol + "//" + window.location.host)) {
+      $.ajax(targetURL, {
+        data: data,
+        type: 'GET',
+        dataType: "jsonp",
+        success: function(data) {
+          me.buildHeatMapLayer(data);
+        }
+      });
+    } else {
+      $.ajax(targetURL, {
+        data: data,
+        type: 'GET',
+        dataType: "json",
+        success: function(data, textStatus, jqXHR) {
+          me.buildHeatMapLayer(data);
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+          alert("Failed to update heat map data! (" + errorThrown + ")");
+        }
+      });
+    }
+  };
 
-  google.maps.event.addListener(rootMap, 'dragend', update);
-  google.maps.event.addListener(rootMap, 'zoom_changed', update);
+  google.maps.event.addListenerOnce(rootMap, 'idle', updateMap);
+  google.maps.event.addListener(rootMap, 'dragend', updateMap);
+  google.maps.event.addListener(rootMap, 'zoom_changed', updateMap);
 
   this.root = rootMap;
 };
 
-wpsp.map.prototype.updateMap = function(dataServer, targetObject) {
-  var targetURL = dataServer + "/events.json";
-  var northEast = targetObject.getBounds().getNorthEast();
-  var southWest = targetObject.getBounds().getSouthWest();
-  var data = {
-    lon_r: [ southWest.lng(), northEast.lng() ],
-    lat_r: [ southWest.lat(), northEast.lat() ],
-  };
-  if (dataServer != (window.location.protocol + "//" + window.location.host)) {
-    $.ajax(targetURL, {
-      data: data,
-      type: 'GET',
-      dataType: "jsonp",
-      success: function(data) {
-        this.buildHeatMapLayer(data);
-      }
-    });
-  } else {
-    $.ajax(targetURL, {
-      data: data,
-      type: 'GET',
-      dataType: "json",
-      success: function(data, textStatus, jqXHR) {
-        this.buildHeatMapLayer(data);
-      },
-      error: function(jqXHR, textStatus, errorThrown) {
-        alert("Failed to update heat map data! (" + errorThrown + ")");
-      }
-    });
-  }
-};
 
 /**
  * Layers.
  */
-wpsp.map.prototype.buildHeatMapLayer = function(data) {
+crowdy.map.prototype.buildHeatMapLayer = function(data) {
   if (this.heatMap) {
     this.heatMap.setMap(null);
   }
@@ -115,7 +113,6 @@ wpsp.map.prototype.buildHeatMapLayer = function(data) {
     });
     var gradient = [
       'rgba(0, 0, 255, 1)',
-      'rgba(0, 255, 0, 1)',
       'rgba(255, 255, 0, 1)',
       'rgba(255, 0, 0, 1)'
     ]
@@ -148,18 +145,18 @@ wpsp.map.prototype.buildHeatMapLayer = function(data) {
 /**
  * Pane management.
  */
-wpsp.map.prototype.registerPane = function(name, position, pane) {
+crowdy.map.prototype.registerPane = function(name, position, pane) {
   if (this.panes[name] == undefined) {
     this.panes[name] = pane;
     this.root.controls[position].push(pane);
   }
 };
 
-wpsp.map.prototype.deRegisterPane = function(name) {
+crowdy.map.prototype.deRegisterPane = function(name) {
   delete this.panes[name];
 };
 
-wpsp.map.prototype.makeItemizedPane = function(name, contentList, extraClass) {
+crowdy.map.prototype.makeItemizedPane = function(name, contentList, extraClass) {
   var pane = document.createElement("div");
   pane.id = name + "-pane";
   $(pane).addClass("map-pane");
@@ -175,7 +172,7 @@ wpsp.map.prototype.makeItemizedPane = function(name, contentList, extraClass) {
         $(contentDiv).addClass(c);
       });
     }
-    var content = new wpsp.map.ItemizedPaneItem();
+    var content = new crowdy.map.ItemizedPaneItem();
     content.title = contentList[i].title;
     content.action = contentList[i].action;
     var title = document.createElement("div");
@@ -202,7 +199,7 @@ wpsp.map.prototype.makeItemizedPane = function(name, contentList, extraClass) {
   return pane;
 };
 
-wpsp.map.prototype.makeTextPane = function(name, contentList, extraClass) {
+crowdy.map.prototype.makeTextPane = function(name, contentList, extraClass) {
   var pane = document.createElement("div");
   pane.id = name + "-pane";
   $(pane).addClass("map-pane");
@@ -211,7 +208,7 @@ wpsp.map.prototype.makeTextPane = function(name, contentList, extraClass) {
   }
   for (var i = 0; i < contentList.length; i++) {
     var contentDiv = document.createElement("div");
-    var section = new wpsp.map.TextPaneItem();
+    var section = new crowdy.map.TextPaneItem();
     var title = contentList[i].title;
     if (title != undefined) {
       section.title = title;
@@ -233,13 +230,13 @@ wpsp.map.prototype.makeTextPane = function(name, contentList, extraClass) {
 /**
  * Pane Contents.
  */
-wpsp.map.ItemizedPaneItem = function() {
+crowdy.map.ItemizedPaneItem = function() {
   this.image = undefined;
   this.title = "Title";
   this.action = function() {};
 };
 
-wpsp.map.TextPaneItem = function() {
+crowdy.map.TextPaneItem = function() {
   this.title = "Title";
   this.content = "Content";
 };
@@ -248,7 +245,7 @@ wpsp.map.TextPaneItem = function() {
  * Application's map.
  */
 $(document).ready(function() {
-  var map = new wpsp.map;
+  var map = new crowdy.map;
 
   /**
    * Use current location if available.
