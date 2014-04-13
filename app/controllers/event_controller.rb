@@ -18,7 +18,7 @@ class EventController < ApplicationController
   def index
     @events = Event.all
     respond_to do |format|
-      format.html { render @events }
+      format.html { render }
       format.json { render json: @events.collect{|e| {lat: e.latitude, lon: e.longitude, weight: 1}}, status: :ok }
     end
   end
