@@ -114,17 +114,24 @@ crowdy.map.prototype.buildHeatMapLayer = function(data) {
     var gradient = [
       'rgba(0, 0, 255, 1)',
       'rgba(255, 255, 0, 1)',
+      'rgba(255, 255, 0, 1)',
+      'rgba(255, 255, 0, 1)',
+      'rgba(255, 255, 0, 1)',
+      'rgba(255, 255, 0, 1)',
       'rgba(255, 0, 0, 1)'
     ]
     var radiusForScale = { // Rule of thumb: Divide by 2 as the zoom gets stronger.
+      15: 5,
+      14: 10,
+      13: 20,
       12: 30,
-      11: 60,
-      10: 110,
-      9: 21,
-      8: 38,
+      11: 40,
+      10: 50,
+      9: 60,
+      8: 70,
       7: 80,
-      6: 120,
-      5: 240
+      6: 900,
+      5: 100
     };
     var targetRadius = radiusForScale[this.root.zoom];
     if (targetRadius == undefined && this.root.zoom < 5) { targetRadius = 240 }
