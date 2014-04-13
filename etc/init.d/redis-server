@@ -18,6 +18,12 @@ DAEMON_ARGS=/etc/redis/redis.conf
 NAME=redis-server
 DESC=redis-server
 
+LOGDIR=/var/log/redis
+LOGFILE=$LOGDIR/redis-server.log
+mkdir -p $LOGDIR
+touch $LOGFILE
+chown redis:redis $LOGDIR $LOGFILE
+
 RUNDIR=/var/run/redis
 PIDFILE=$RUNDIR/redis-server.pid
 
