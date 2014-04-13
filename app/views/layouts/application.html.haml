@@ -13,72 +13,13 @@
       body { height: 100%; margin: 0; padding: 0 }
       #map-canvas { height: 100% }
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
-    %script{type: 'text/javascript', src: "https://maps.googleapis.com/maps/api/js?key=AIzaSyAO_gjNW54LtbRI1bAFaD52L0hEBijbRpE&sensor=true"}
+    %script{type: 'text/javascript', src: "https://maps.googleapis.com/maps/api/js?libraries=visualization&key=AIzaSyAO_gjNW54LtbRI1bAFaD52L0hEBijbRpE&sensor=true"}
+    = javascript_include_tag 'application', 'data-turbolinks-track' => true
     :javascript
-      function detectBrowser() {
-        var useragent = navigator.userAgent;
-        var mapdiv = document.getElementById("map-canvas");
-
-        if (useragent.indexOf('iPhone') != -1 || useragent.indexOf('Android') != -1 ) {
-          mapdiv.style.width = '90%';
-          mapdiv.style.height = '70%';
-        } else {
-          mapdiv.style.width = '80%';
-          mapdiv.style.height = '800px';
-        }
-      }
-      function initialize() {
-        var mapOptions = {
-          center: new google.maps.LatLng(-34.397, 150.644),
-          zoom: 8
-        };
-        detectBrowser();
-        var map = new google.maps.Map(document.getElementById("map-canvas"),
-          mapOptions);
-      }
-      google.maps.event.addDomListener(window, 'load', initialize);
-      
-      function success(position) {
-        var lat = document.querySelector('#latitude');
-        lat.value = position.coords.latitude;
-        var lon = document.querySelector('#longitude');
-        lon.value = position.coords.longitude;
-
-        var latlng = new google.maps.LatLng(position.coords.latitude, position.coords.longitude);
-        var myOptions = {
-          zoom: 15,
-          center: latlng,
-          mapTypeControl: false,
-          navigationControlOptions: {style: google.maps.NavigationControlStyle.SMALL},
-          mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        var map = new google.maps.Map(document.getElementById("map-canvas"), myOptions);
-        
-        var marker = new google.maps.Marker({
-            position: latlng, 
-            map: map, 
-            title: "位置精度: " + position.coords.accuracy + " 半径メトル"
-        });
-      }
-      
-      function error(msg) {
-        var s = document.querySelector('#result');
-        s.innerHTML = typeof msg == 'string' ? msg : "位置情報収得できなくて報告失敗";
-        s.className = 'error';
-      }
-      
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(success, error);
-      } else {
-        error('Not supported');
-      }
-
-      window.onload = function () {
+      $(document).ready(function () {
         var evt = document.querySelector('#coming-out');
         evt.onclick = function () { return confirm("本当に？お大事に…"); };
-      }
-
-    = javascript_include_tag 'application', 'data-turbolinks-track' => true
+      });
     = csrf_meta_tags
   %body
     = yield
