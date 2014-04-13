@@ -8,4 +8,13 @@ class ApplicationController < ActionController::Base
   def expose_agent
     @agent = request.user_agent
   end
+
+  def self.redis
+    @@redis ||= Redis.new
+  end
+
+  def redis
+    self.redis
+  end
+
 end
