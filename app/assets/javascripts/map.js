@@ -262,11 +262,6 @@ $(document).ready(function() {
       // Set current location only If current location is in available area.
       if (21 < position.coords.latitude && position.coords.latitude < 49
         && 121 < position.coords.longitude && position.coords.longitude < 149) {
-        var lat = document.querySelector("#latitude");
-        lat.value = position.coords.latitude;
-        var lon = document.querySelector("#longitude");
-        lon.value = position.coords.longitude;
-        lat
         var center = new google.maps.LatLng(
           position.coords.latitude,
           position.coords.longitude

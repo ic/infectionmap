@@ -33,6 +33,20 @@
         if (hazard) {
           hazard.onclick = function () { return moveTo("hazard") };
         }
+
+        if (navigator.geolocation) {
+          navigator.geolocation.getCurrentPosition(function(position) {
+              if (21 < position.coords.latitude && position.coords.latitude < 49
+                && 121 < position.coords.longitude && position.coords.longitude < 149) {
+                var lat = document.querySelector("#latitude");
+                if (lat)
+                  lat.value = position.coords.latitude;
+                var lon = document.querySelector("#longitude");
+                if (lon)
+                  lon.value = position.coords.longitude;
+              }
+          });
+        }
       });
     = csrf_meta_tags
   %body
