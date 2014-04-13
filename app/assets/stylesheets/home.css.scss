@@ -49,6 +49,24 @@ table tr:hover {
 	border: 0;
 }
 
+button {
+	width: 80%;
+	padding: 50px;
+	border: 1px solid #006;
+	background: #ffc;
+	display: block;
+	margin-top: 10px;
+	margin-bottom: 10px;
+	margin-left: auto;
+	margin-right: auto;
+	font-size: 1.2em;
+	font-weight: bold;
+}
+
+button:hover {
+	background: #eee;
+}
+
 input {
 	width: 80%;
 	padding: 50px;

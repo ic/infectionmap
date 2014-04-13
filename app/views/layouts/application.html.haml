@@ -18,7 +18,21 @@
     :javascript
       $(document).ready(function () {
         var evt = document.querySelector('#coming-out');
-        evt.onclick = function () { return confirm("本当に？お大事に…"); };
+        if (evt) {
+          evt.onclick = function () { return confirm("本当に？お大事に…"); };
+        }
+
+        var moveTo = function (path) {
+            window.location.href = "http://54.178.143.149/" + path;
+        }
+        var inform = document.querySelector('#inform');
+        if (inform) {
+          inform.onclick = function () { return moveTo("inform") };
+        }
+        var hazard = document.querySelector('#hazard');
+        if (hazard) {
+          hazard.onclick = function () { return moveTo("hazard") };
+        }
       });
     = csrf_meta_tags
   %body

@@ -1,0 +1,24 @@
+%h1
+  みんなでインフルエンザーを見ようへようこそ
+
+%p
+  このサイトはインフルエンザに感染した方が、感染を申告していただくことでインフルエンザの感染状況を表示するサイトです。 以下のボタンをクリックしていただくことで申告が完了いたします。
+
+%form{action: 'event', method: :post}
+  %input{type: :hidden, name: :event_type, value: :influenza}
+  %input{type: :hidden, name: :lat, value: '', id: :latitude}
+  %input{type: :hidden, name: :lon, value: '', id: :longitude}
+  %input{type: :submit, value: 'インフルエンザになりました', id: 'coming-out'}
+%p
+  ご協力ありがとうございました。
+%hr
+%ul
+  %li
+    = link_to 'ハザードマップへ', hazard_path
+    = link_to '全イベント', events_path
+    = link_to 'ホーム', root_path
+
+%hr
+%p
+  ISAC Tokyo 2014 - Help
+

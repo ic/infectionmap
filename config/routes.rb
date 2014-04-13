@@ -3,6 +3,9 @@ Rails.application.routes.draw do
   get  'events' => 'event#index'
   post 'event'  => 'event#create'
 
+  get 'inform' => 'home#inform'
+  get 'hazard' => 'home#hazard'
+
   root 'home#index'
 
   # The priority is based upon order of creation: first created -> highest priority.
