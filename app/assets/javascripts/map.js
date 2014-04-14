@@ -285,6 +285,11 @@ $(document).ready(function() {
     map.init(new google.maps.LatLng(35.632291, 139.881371));
   }
 
+  var waitingTag = document.querySelector("#waiting")
+  if (waitingTag) {
+    $(waitingTag).remove();
+  }
+
   //map.updateMap(map.dataServer, map.root);
 
   /**

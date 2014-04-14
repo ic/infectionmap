@@ -2,14 +2,6 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
-.success {
-	background-color: green;
-}
-
-.error {
-	background-color: red;
-}
-
 body {
 	background-color:#1E468B;
 	color: white;
@@ -67,4 +59,14 @@ input:hover {
 	background: #eee;
 }
 
+div.waiting {
+	display: block;
+	margin-top: 100px;
+	margin-bottom: 100px;
+	margin-left: auto;
+	margin-right: auto;
+	font-size: 1.2em;
+	font-weight: bold;
+        color: white;
+}
 
