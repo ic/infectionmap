@@ -252,6 +252,10 @@ crowdy.map.TextPaneItem = function() {
  * Application's map.
  */
 $(document).ready(function() {
+
+  console.log(window.location.href);
+  if (!window.location.href.match(/.*hazard/)) { return; }
+
   var map = new crowdy.map;
 
   /**

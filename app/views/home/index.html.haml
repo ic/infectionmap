@@ -1,10 +1,11 @@
 %h1
   みんなでインフルエンザーを見ようへようこそ
 
-%button{id: 'inform'}
-  登録
-%button{id: 'hazard'}
-  ハザードMap
+%form{action: :inform, method: :get}
+  %input{type: :submit, value: '登録', id: 'inform'}
+
+%form{action: :hazard, method: :get}
+  %input{type: :submit, value: 'ハザードMap', id: 'hazard'}
 
 %hr
 %p
