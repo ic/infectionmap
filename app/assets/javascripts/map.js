@@ -32,7 +32,7 @@ crowdy.map.prototype.init = function(center) {
   var mapOptions = {
     center: center, //new google.maps.LatLng(35.632291, 139.881371), // Tokyo Disney Land
     zoom: 15,
-    maxZoom: 15,
+    maxZoom: 12,
     minZoom: 5,
     mapTypeId: google.maps.MapTypeId.ROADMAP,
     zoomControlOptions: {
