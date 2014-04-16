@@ -11,34 +11,6 @@
     = stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true
     %script{type: 'text/javascript', src: "https://maps.googleapis.com/maps/api/js?libraries=visualization&key=AIzaSyAO_gjNW54LtbRI1bAFaD52L0hEBijbRpE&sensor=true"}
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
-    :javascript
-      $(document).ready(function () {
-        var evt = document.querySelector('#coming-out');
-        if (evt) {
-          evt.onclick = function () { return confirm("本当に？お大事に…"); };
-        }
-
-        if (navigator.geolocation) {
-          navigator.geolocation.getCurrentPosition(function(position) {
-            var lat = document.querySelector("#latitude");
-            var lon = document.querySelector("#longitude");
-            if (21 < position.coords.latitude && position.coords.latitude < 49
-              && 121 < position.coords.longitude && position.coords.longitude < 149) {
-              if (lat)
-                lat.value = position.coords.latitude;
-              if (lon)
-                lon.value = position.coords.longitude;
-            } else {
-              if (lat)
-                lat.value = 35.632291;
-              if (lon)
-                lon.value = 139.881371;
-            }
-            console.log(lat.value);
-            console.log(lon.value);
-          });
-        }
-      });
     = csrf_meta_tags
   %body
     = yield

@@ -1,3 +1,35 @@
+:javascript
+  $(document).ready(function () {
+    var evt = document.querySelector('#coming-out');
+    if (evt) {
+      evt.onclick = function () { return confirm("本当に？お大事に…"); };
+    }
+
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        var lat = document.querySelector("#latitude");
+        var lon = document.querySelector("#longitude");
+        if (21 < position.coords.latitude && position.coords.latitude < 49
+          && 121 < position.coords.longitude && position.coords.longitude < 149) {
+          if (lat)
+            lat.value = position.coords.latitude;
+          if (lon)
+            lon.value = position.coords.longitude;
+        } else {
+          if (lat)
+            lat.value = 35.632291;
+          if (lon)
+            lon.value = 139.881371;
+        }
+        if (lat.value != '' && lon.value != '') {
+          $(evt).removeAttr("disabled");
+          evt.value = "インフルエンザになりました";
+        }
+      });
+    }
+
+  });
+
 %h1
   みんなでインフルエンザーを見ようへようこそ
 
@@ -8,7 +40,7 @@
   %input{type: :hidden, name: :event_type, value: :influenza}
   %input{type: :hidden, name: :lat, value: '', id: :latitude}
   %input{type: :hidden, name: :lon, value: '', id: :longitude}
-  %input{type: :submit, value: 'インフルエンザになりました', id: 'coming-out'}
+  %input{type: :submit, value: '置情報収得中...', id: 'coming-out', disabled: true}}
 %p
   ご協力ありがとうございました。
 %hr

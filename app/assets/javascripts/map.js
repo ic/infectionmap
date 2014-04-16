@@ -253,7 +253,6 @@ crowdy.map.TextPaneItem = function() {
  */
 $(document).ready(function() {
 
-  console.log(window.location.href);
   if (!window.location.href.match(/.*hazard/)) { return; }
 
   var map = new crowdy.map;
@@ -284,6 +283,11 @@ $(document).ready(function() {
   } else {
     alert("No support for location information. The app will work only with what is available around Tokyo.");
     map.init(new google.maps.LatLng(35.632291, 139.881371));
+  }
+
+  var waitingTag = document.querySelector("#waiting")
+  if (waitingTag) {
+    $(waitingTag).remove();
   }
 
   //map.updateMap(map.dataServer, map.root);
