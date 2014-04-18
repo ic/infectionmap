@@ -22,7 +22,7 @@ else
         CROWDY_ENV=development
 fi
 
-
+export SECRET_KEY_BASE=Nevertrustanhonestbusinessman
 
 CROWDY_HOME=/home/crowdy/crowdy
 
