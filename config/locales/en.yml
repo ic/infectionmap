@@ -20,4 +20,26 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  home:
+    title: Infection Map
+    inform: Record
+    map: Hazard Map
+  inform:
+    title: Infection Map
+    explanation: TODO
+    thanks: Thank you for your participation.
+    search_location: Waiting for location...
+  hazard:
+    title: Infection Map
+    search_location: Waiting for location...
+  events:
+    title: All Events
+    longitude: Longitude
+    latitude: Latitude
+    timezone: Timestamp (UTC)
+  navigation:
+    map: Hazard Map
+    home: Home
+    events: Events List
+    inform: Record
+

@@ -1,0 +1,24 @@
+fr:
+  home:
+    title: Infection Map
+    inform: Informer
+    map: Carte des infections
+  inform:
+    title: Infection Map
+    explanation: TODO
+    thanks: Merci pour votre participation.
+    search_location: En attente de la position...
+  hazard:
+    title: Infection Map
+    search_location: En attente de la position...
+  events:
+    title: Tous les événements
+    longitude: Longitude
+    latitude: Latitude
+    timezone: Heure (UTC)
+  navigation:
+    map: Carte des infections
+    home: Acceuil
+    events: Liste des événements
+    inform: Informer
+

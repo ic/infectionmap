@@ -1,13 +1,14 @@
 %h1
-  みんなでインフルエンザーを見ようへようこそ
+  = I18n.t 'home.title'
 
 %form{action: :inform, method: :get}
-  %input{type: :submit, value: '登録', id: 'inform'}
+  %input{type: :hidden, value: I18n.locale, name: 'locale'}
+  %input{type: :submit, value: I18n.t('home.inform'), id: 'inform'}
 
 %form{action: :hazard, method: :get}
-  %input{type: :submit, value: 'ハザードMap', id: 'hazard'}
+  %input{type: :hidden, value: I18n.locale, name: 'locale'}
+  %input{type: :submit, value: I18n.t('home.map'), id: 'hazard'}
 
 %hr
-%p
-  ISAC Tokyo 2014 - Help
+= render(partial: 'partials/footlinks', locals: { controller: :home, action: :index})
 

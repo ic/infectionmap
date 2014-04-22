@@ -1,15 +1,15 @@
 %h1
-  全イベント
+  = I18n.t('events.title')
 %table
   %thead
     %th
       IP
     %th
-      軽度
+      = I18n.t('events.longitude')
     %th
-      緯度
+      = I18n.t('events.latitude')
     %th
-      タイムスタンプ(UTC)
+      = I18n.t('events.timezone')
   %tbody
   - @events.each do |e|
     %tr
@@ -20,4 +20,4 @@
 %hr
 %ul
   %li
-    = link_to 'Home', :root
+    = link_to I18n.t('navigation.home'), :root

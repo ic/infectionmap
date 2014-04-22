@@ -1,0 +1,24 @@
+jp:
+  home:
+    title: みんなでインフルエンザーを見ようへようこそ
+    inform: 登録
+    map: ハザードMap
+  inform:
+    title: みんなでインフルエンザーを見ようへようこそ
+    explanation: このサイトはインフルエンザに感染した方が、感染を申告していただくことでインフルエンザの感染状況を表示するサイトです。 以下のボタンをクリックしていただくことで申告が完了いたします。
+    thanks: ご協力ありがとうございました。
+    search_location: 置情報収得中...
+  hazard:
+    title: みんなでインフルエンザーを見ようへようこそ
+    search_location: 置情報収得中...
+  events:
+    title: 全イベント
+    longitude: 軽度
+    latitude: 緯度
+    timezone: タイムスタンプ(UTC)
+  navigation:
+    map: ハザードMapへ
+    home: ホーム
+    events: 全イベント
+    inform: 登録
+

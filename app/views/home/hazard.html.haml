@@ -1,19 +1,18 @@
 %h1
-  みんなでインフルエンザーを見ようへようこそ
+  = I18n.t('hazard.title')
 
 %div{class: :waiting, id: :waiting}
-  位置情報収得中...
+  = I18n.t('hazard.search_location')
 %div{id: 'map-canvas'}
 %hr
 %ul
   %li
-    = link_to '登録', inform_path
+    = link_to I18n.t('navigation.inform'), inform_path
   %li
-    = link_to '全イベント', events_path
+    = link_to I18n.t('navigation.events'), events_path
   %li
-    = link_to 'ホーム', root_path
+    = link_to I18n.t('navigation.home'), root_path
 
 %hr
-%p
-  ISAC Tokyo 2014 - Help
+= render(partial: 'partials/footlinks', locals: { controller: :home, action: :hazard})
 
