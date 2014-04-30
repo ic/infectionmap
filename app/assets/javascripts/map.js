@@ -7,23 +7,27 @@ var crowdy = crowdy || {};
  */
 crowdy.map = crowdy.map || function() {
   this.root = {};
+  this.currentLocation;
   this.dataServer = window.location.protocol + "//" + window.location.host;
   this.panes = {};
   this.heatMapCache = {};
+  crowdy.map.memo = this;
 };
+
+crowdy.map.memo = {};
 
 crowdy.map.prototype.buildMap = function(options) {
   var mapdiv = document.getElementById("map-canvas");
   var map = new google.maps.Map(mapdiv, options || {});
 
-  var useragent = navigator.userAgent;
-  if (useragent.indexOf('iPhone') != -1 || useragent.indexOf('Android') != -1 ) {
-    mapdiv.style.width = '90%';
-    mapdiv.style.height = '70%';
-  } else {
-    mapdiv.style.width = '80%';
-    mapdiv.style.height = '800px';
-  }
+  //var useragent = navigator.userAgent;
+  //if (useragent.indexOf('iPhone') != -1 || useragent.indexOf('Android') != -1 ) {
+  //  mapdiv.style.width = '90%';
+  //  mapdiv.style.height = '70%';
+  //} else {
+  //  mapdiv.style.width = '80%';
+  //  mapdiv.style.height = '800px';
+  //}
 
   return map;
 };
@@ -69,8 +73,8 @@ crowdy.map.prototype.init = function(center) {
           me.buildHeatMapLayer(data);
         },
         error: function(jqXHR, textStatus, errorThrown) {
-          alert("Failed to update heat map data! (" + errorThrown + ")");
-        }
+                 alert("Failed to update heat map data! (" + errorThrown + ")");
+               }
       });
     }
   };
@@ -119,20 +123,20 @@ crowdy.map.prototype.buildHeatMapLayer = function(data) {
       'rgba(255, 255, 0, 1)',
       'rgba(255, 255, 0, 1)',
       'rgba(255, 0, 0, 1)'
-    ]
-    var radiusForScale = { // Rule of thumb: Divide by 2 as the zoom gets stronger.
-      15: 5,
-      14: 10,
-      13: 20,
-      12: 30,
-      11: 40,
-      10: 50,
-      9: 60,
-      8: 70,
-      7: 80,
-      6: 900,
-      5: 100
-    };
+        ]
+        var radiusForScale = { // Rule of thumb: Divide by 2 as the zoom gets stronger.
+          15: 5,
+          14: 10,
+          13: 20,
+          12: 30,
+          11: 40,
+          10: 50,
+          9: 60,
+          8: 70,
+          7: 80,
+          6: 900,
+          5: 100
+        };
     var targetRadius = radiusForScale[this.root.zoom];
     if (targetRadius == undefined && this.root.zoom < 5) { targetRadius = 240 }
     if (targetRadius == undefined && this.root.zoom > 10) { targetRadius = 50 }
@@ -248,12 +252,155 @@ crowdy.map.TextPaneItem = function() {
   this.content = "Content";
 };
 
+crowdy.map.prototype.setupOnLocation = function(position) {
+  var map = crowdy.map.memo;
+
+  map.currentLocation = position; // Memo
+  console.log("Memo for: " + position.coords);
+
+  // Set current location only If current location is in available area.
+  if (21 < position.coords.latitude && position.coords.latitude < 49
+      && 121 < position.coords.longitude && position.coords.longitude < 149) {
+    var center = new google.maps.LatLng(
+        position.coords.latitude,
+        position.coords.longitude
+        );
+    map.init(center);
+    var marker = new google.maps.Marker({
+      position: center,
+      map: map.root,
+      title: "位置精度: " + position.coords.accuracy + " 半径メトル"
+    });
+  } else {
+    alert("There is no satellite data for your location. The app will work only with user-generated data.");
+    map.init(new google.maps.LatLng(35.632291, 139.881371));
+  }
+
+  /**
+   * Panes.
+   */
+  var helpSunny = '<font style="color:#FDDD29;font-size:2em">●</font> Best sunlight.';
+  var helpMODIS = '<font style="color:rgba(0, 0, 255, 1);font-size:2em">●</font> Very Cloudy<br/>'
+    + '<font style="color:rgba(0, 255, 0, 1);font-size:2em">●</font> Cloudy<br/>'
+    + '<font style="color:rgba(255, 255, 0, 1);font-size:2em">●</font> Sunny<br/>'
+    + '<font style="color:rgba(255, 0, 0, 1);font-size:2em;baseline-shift:sub">●</font> Very Sunny';
+
+  var overlayControlPane = map.makeItemizedPane("overlay", [
+      {
+        "title": "ON/OFF",
+      "action": function() {
+        if (map.heatMap == undefined) {
+          $.jGrowl("Sorry! The sunchine map is not ready. Please try again in a few seconds.");
+          return
+        }
+        if (map.heatMap.getMap() == undefined || map.heatMap.getMap() == null) {
+          $(".map-section-text").parent().parent("div").show();
+          map.heatMap.setMap(map.root);
+        } else {
+          $(".map-section-text").parent().parent("div").hide();
+          map.heatMap.setMap(null);
+        }
+      },
+      "image": "images/layer-icon.png",
+      "imageSize": { "width": 32 },
+      "itemExtraClass": ["map-pane-item-horizontal"],
+      "itemExtraAttr": { "data-intro": 'Show and hide the sun map', "data-step": '1', "data-position": "top" }
+      },
+  {
+    "title": "Sunny Places",
+    "action": function() {
+      $(".map-section-text").html(helpSunny);
+      var gradient = [
+        'rgba(0, 0, 0, 1)',
+        '#FDDD29'
+          ]
+          map.heatMap.setOptions({ gradient: gradient });
+    },
+    "image": "images/sunny.png",
+    "imageSize": { "width": 32 },
+    "itemExtraClass": ["map-pane-item-horizontal"],
+    "itemExtraAttr": { "data-intro": helpSunny, "data-step": '2', "data-position": "top" }
+  },
+  {
+    "title": "Modis Full Data",
+    "action": function() {
+      $(".map-section-text").html(helpMODIS);
+      var gradient = [
+        'rgba(0, 0, 255, 1)',
+        'rgba(0, 255, 0, 1)',
+        'rgba(255, 255, 0, 1)',
+        'rgba(255, 0, 0, 1)'
+          ]
+          map.heatMap.setOptions({ gradient: gradient });
+    },
+    "image": "images/satellite.png",
+    "imageSize": { "width": 32 },
+    "itemExtraClass": ["map-pane-item-horizontal"],
+    "itemExtraAttr": { "data-intro": helpMODIS, "data-step": '3', "data-position": "top" }
+  },
+  {
+    "title": "Help",
+    "action": function() {
+      introJs().start();
+    },
+    "image": "images/help.png",
+    "imageSize": { "width": 32 },
+    "itemExtraClass": ["map-pane-item-horizontal"]
+  },
+  {
+    "title": "Home",
+    "action": function() {
+      window.location.href = window.location.protocol + "//" + window.location.host;
+    },
+    "image": "images/home.png",
+    "imageSize": { "width": 32 },
+    "itemExtraClass": ["map-pane-item-horizontal"]
+  },
+  {
+    "title": "Vote on Twitter?",
+    "action": function() {
+      window.open("https://twitter.com/intent/tweet?text=I%20vote%20%23cloudlessspots%20for%20%40spaceapps%20People%27s%20Choice%20Award!", "_blank");
+    },
+    "image": "images/vote.png",
+    "imageSize": { "width": 32 },
+    "itemExtraClass": ["map-pane-item-horizontal"]
+  }
+  ], "map-pane-bottom");
+
+  var mapLegendPane = map.makeTextPane("map-legend", [
+      {
+        "content": helpMODIS
+      }
+      ], "map-pane-right");
+
+  //
+  // Layout.
+  //
+  var config = {
+    "panes": [
+    {
+      "name": "overlay",
+      "position": google.maps.ControlPosition.BOTTOM_CENTER,
+      "pane": overlayControlPane
+    },
+    {
+      "name": "map-legend",
+      "position": google.maps.ControlPosition.RIGHT_CENTER,
+      "pane": mapLegendPane
+    }
+    ]
+  };
+  $.each(config["panes"], function(key, value) {
+    //map.registerPane(value["name"], value["position"], value["pane"]);
+  });
+};
+
 /**
  * Application's map.
  */
 $(document).ready(function() {
 
-  if (!window.location.href.match(/.*hazard/)) { return; }
+  // TODO do not regenerate the map after the first time.
 
   var map = new crowdy.map;
 
@@ -261,154 +408,20 @@ $(document).ready(function() {
    * Use current location if available.
    */
   if (navigator.geolocation) {
-    navigator.geolocation.getCurrentPosition(function(position) {
-      // Set current location only If current location is in available area.
-      if (21 < position.coords.latitude && position.coords.latitude < 49
-        && 121 < position.coords.longitude && position.coords.longitude < 149) {
-        var center = new google.maps.LatLng(
-          position.coords.latitude,
-          position.coords.longitude
-          );
-        map.init(center);
-        var marker = new google.maps.Marker({
-          position: center,
-          map: map.root,
-          title: "位置精度: " + position.coords.accuracy + " 半径メトル"
-        });
-      } else {
-        alert("There is no satellite data for your location. The app will work only with user-generated data.");
-        map.init(new google.maps.LatLng(35.632291, 139.881371));
-      }
-
-      /**
-       * Panes.
-       */
-      var helpSunny = '<font style="color:#FDDD29;font-size:2em">●</font> Best sunlight.';
-      var helpMODIS = '<font style="color:rgba(0, 0, 255, 1);font-size:2em">●</font> Very Cloudy<br/>'
-        + '<font style="color:rgba(0, 255, 0, 1);font-size:2em">●</font> Cloudy<br/>'
-        + '<font style="color:rgba(255, 255, 0, 1);font-size:2em">●</font> Sunny<br/>'
-        + '<font style="color:rgba(255, 0, 0, 1);font-size:2em;baseline-shift:sub">●</font> Very Sunny';
-
-      var overlayControlPane = map.makeItemizedPane("overlay", [
-          {
-            "title": "ON/OFF",
-          "action": function() {
-            if (map.heatMap == undefined) {
-              $.jGrowl("Sorry! The sunchine map is not ready. Please try again in a few seconds.");
-              return
-            }
-            if (map.heatMap.getMap() == undefined || map.heatMap.getMap() == null) {
-              $(".map-section-text").parent().parent("div").show();
-              map.heatMap.setMap(map.root);
-            } else {
-              $(".map-section-text").parent().parent("div").hide();
-              map.heatMap.setMap(null);
-            }
-          },
-          "image": "images/layer-icon.png",
-          "imageSize": { "width": 32 },
-          "itemExtraClass": ["map-pane-item-horizontal"],
-          "itemExtraAttr": { "data-intro": 'Show and hide the sun map', "data-step": '1', "data-position": "top" }
-          },
-      {
-        "title": "Sunny Places",
-        "action": function() {
-          $(".map-section-text").html(helpSunny);
-          var gradient = [
-            'rgba(0, 0, 0, 1)',
-            '#FDDD29'
-              ]
-              map.heatMap.setOptions({ gradient: gradient });
-        },
-        "image": "images/sunny.png",
-        "imageSize": { "width": 32 },
-        "itemExtraClass": ["map-pane-item-horizontal"],
-        "itemExtraAttr": { "data-intro": helpSunny, "data-step": '2', "data-position": "top" }
-      },
-      {
-        "title": "Modis Full Data",
-        "action": function() {
-          $(".map-section-text").html(helpMODIS);
-          var gradient = [
-            'rgba(0, 0, 255, 1)',
-            'rgba(0, 255, 0, 1)',
-            'rgba(255, 255, 0, 1)',
-            'rgba(255, 0, 0, 1)'
-              ]
-              map.heatMap.setOptions({ gradient: gradient });
-        },
-        "image": "images/satellite.png",
-        "imageSize": { "width": 32 },
-        "itemExtraClass": ["map-pane-item-horizontal"],
-        "itemExtraAttr": { "data-intro": helpMODIS, "data-step": '3', "data-position": "top" }
-      },
-      {
-        "title": "Help",
-        "action": function() {
-          introJs().start();
-        },
-        "image": "images/help.png",
-        "imageSize": { "width": 32 },
-        "itemExtraClass": ["map-pane-item-horizontal"]
-      },
-      {
-        "title": "Home",
-        "action": function() {
-          window.location.href = window.location.protocol + "//" + window.location.host;
-        },
-        "image": "images/home.png",
-        "imageSize": { "width": 32 },
-        "itemExtraClass": ["map-pane-item-horizontal"]
-      },
-      {
-        "title": "Vote on Twitter?",
-        "action": function() {
-          window.open("https://twitter.com/intent/tweet?text=I%20vote%20%23cloudlessspots%20for%20%40spaceapps%20People%27s%20Choice%20Award!", "_blank");
-        },
-        "image": "images/vote.png",
-        "imageSize": { "width": 32 },
-        "itemExtraClass": ["map-pane-item-horizontal"]
-      }
-      ], "map-pane-bottom");
-
-      var mapLegendPane = map.makeTextPane("map-legend", [
-          {
-            "content": helpMODIS
-          }
-          ], "map-pane-right");
-
-      /**
-       * Layout.
-       */
-      var config = {
-        "panes": [
-        {
-          "name": "overlay",
-          "position": google.maps.ControlPosition.BOTTOM_CENTER,
-          "pane": overlayControlPane
-        },
-        {
-          "name": "map-legend",
-          "position": google.maps.ControlPosition.RIGHT_CENTER,
-          "pane": mapLegendPane
-        }
-        ]
-      };
-      $.each(config["panes"], function(key, value) {
-        //map.registerPane(value["name"], value["position"], value["pane"]);
-      });
-    });
+    if (map.currentLocation) {
+      map.setupOnLocation(map.currentLocation);
+    } else {
+      navigator.geolocation.getCurrentPosition(map.setupOnLocation);
+    }
   } else {
     alert("No support for location information. The app will work only with what is available around Tokyo.");
     map.init(new google.maps.LatLng(35.632291, 139.881371));
   }
 
-  var waitingTag = document.querySelector("#waiting")
-    if (waitingTag) {
+  var waitingTag = document.querySelector("#waiting");
+  if (waitingTag) {
     $(waitingTag).remove();
   }
-
-  //map.updateMap(map.dataServer, map.root);
 
 });
 

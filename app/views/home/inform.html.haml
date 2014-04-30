@@ -2,22 +2,22 @@
   $(document).ready(function () {
     var msgPack = {
       "confirm": "Do you confirm the disease?",
-      "disease": "I got influenza"
+      "button": "Inform"
     };
     if (document.URL.match("locale=jp")) {
       msgPack = {
         "confirm": "本当に？お大事に…",
-        "disease": "インフルエンザになりました"
+        "button": "申告"
       };
     } else if (document.URL.match("locale=fr")) {
       msgPack = {
-        "confirm": "Confirmez-vous avoir la grippe?",
-        "disease": "J'ai la grippe"
+        "confirm": "Confirmez-vous la contraction?",
+        "button": "Enregistrer"
       };
     }
-    var evt = document.querySelector('#coming-out');
-    if (evt) {
-      evt.onclick = function () { return confirm(msgPack.confirm); };
+    var button = document.querySelector('#button');
+    if (button) {
+      button.onclick = function () { return confirm(msgPack.confirm); };
     }
 
     if (navigator.geolocation) {
@@ -37,36 +37,28 @@
             lon.value = 139.881371;
         }
         if (lat.value != '' && lon.value != '') {
-          $(evt).removeAttr("disabled");
-          evt.value = msgPack.disease;
+          $(button).removeAttr("disabled");
+          button.value = msgPack.button;
         }
       });
     }
 
   });
 
-%h1
-  = I18n.t('inform.title')
-
 %p
   = I18n.t('inform.explanation')
 
 %form{action: 'event', method: :post}
-  %input{type: :hidden, name: :event_type, value: :influenza}
+  %input{type: :hidden, name: :locale, value: I18n.locale}
+  %select{name: :disease}
+    %option{value: :influenza}
+      = I18n.t 'disease.influenza'
+    %option{value: :dengue}
+      = I18n.t 'disease.dengue'
   %input{type: :hidden, name: :lat, value: '', id: :latitude}
   %input{type: :hidden, name: :lon, value: '', id: :longitude}
-  %input{type: :submit, value: I18n.t('inform.search_location'), id: 'coming-out', disabled: true}
+  %input{type: :submit, value: I18n.t('inform.search_location'), id: 'button', disabled: true}
+
 %p
   = I18n.t('inform.thanks')
-%hr
-%ul
-  %li
-    = link_to I18n.t('navigation.map'), hazard_path
-  %li
-    = link_to I18n.t('navigation.events'), events_path
-  %li
-    = link_to I18n.t('navigation.home'), root_path
-
-%hr
-= render(partial: 'partials/footlinks', locals: { controller: :home, action: :inform})
 

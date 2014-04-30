@@ -1,7 +1,10 @@
 jp:
+  disease:
+    influenza: インフルエンザー
+    dengue: デンゲ熱
   home:
     title: みんなでインフルエンザーを見ようへようこそ
-    inform: 登録
+    inform: 申告する
     map: ハザードMap
   inform:
     title: みんなでインフルエンザーを見ようへようこそ
@@ -12,6 +15,7 @@ jp:
     title: みんなでインフルエンザーを見ようへようこそ
     search_location: 置情報収得中...
   events:
+    disease: 病気
     title: 全イベント
     longitude: 軽度
     latitude: 緯度

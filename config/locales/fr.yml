@@ -1,4 +1,7 @@
 fr:
+  disease:
+    influenza: Grippe
+    dengue: Fièvre de Dengue
   home:
     title: Infection Map
     inform: Informer
@@ -12,6 +15,7 @@ fr:
     title: Infection Map
     search_location: En attente de la position...
   events:
+    disease: Maladie
     title: Tous les événements
     longitude: Longitude
     latitude: Latitude

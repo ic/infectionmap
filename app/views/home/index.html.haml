@@ -1,14 +1,4 @@
-%h1
-  = I18n.t 'home.title'
-
-%form{action: :inform, method: :get}
-  %input{type: :hidden, value: I18n.locale, name: 'locale'}
-  %input{type: :submit, value: I18n.t('home.inform'), id: 'inform'}
-
-%form{action: :hazard, method: :get}
-  %input{type: :hidden, value: I18n.locale, name: 'locale'}
-  %input{type: :submit, value: I18n.t('home.map'), id: 'hazard'}
-
-%hr
-= render(partial: 'partials/footlinks', locals: { controller: :home, action: :index})
+%div{class: :waiting, id: :waiting}
+  = I18n.t('hazard.search_location')
+%div{id: 'map-canvas'}
 

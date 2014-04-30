@@ -1,9 +1,7 @@
-%h1
-  = I18n.t('events.title')
 %table
   %thead
     %th
-      IP
+      = I18n.t('events.disease')
     %th
       = I18n.t('events.longitude')
     %th
@@ -13,11 +11,8 @@
   %tbody
   - @events.each do |e|
     %tr
-      %td= e.ip
+      %td= e.event_type
       %td= e.longitude
       %td= e.latitude
       %td= e.created_at.strftime('%Y-%m-%d %H:%M:%S')
-%hr
-%ul
-  %li
-    = link_to I18n.t('navigation.home'), :root
+

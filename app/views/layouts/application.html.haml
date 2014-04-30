@@ -3,6 +3,7 @@
   %head
     %title
       Infection Map
+    %meta{charset: 'utf-8'}
     %meta{name: :viewport, content: "initial-scale=1.0, user-scalable=no"}
     - if @agent =~ /iPhone/
       %meta{name: 'apple-mobile-web-app-capable', content: :yes}
@@ -13,4 +14,26 @@
     = javascript_include_tag 'application', 'data-turbolinks-track' => true
     = csrf_meta_tags
   %body
-    = yield
+    %div{id: 'container'}
+      %div{id: 'header'}
+        %div{id: 'logo'}
+          %img{src: 'assets/logo.png', width: '274px', height: '61px', alt: 'Infection Map', title: 'Infection Map'}
+        %div{id: 'submitbutton'}
+          %a{href: inform_path}
+            %img{src: 'assets/button.png', width: '56px', height: '57px', alt: 'Declaration Button', title: 'Declare'}
+            = I18n.t 'home.inform'
+      %div{id: 'contents'}
+        = yield
+      %div{id: 'footer'}
+        %ul
+          - [:en, :fr, :jp].sort.select{|l| l != I18n.locale}.each do |l|
+            %li
+              %a{href: "/?locale=#{l}"}
+                = l.to_s
+          %li
+            %a{href: ''}
+              お問い合わせ
+          %li
+            %a{href: ''}
+              免責事項
+

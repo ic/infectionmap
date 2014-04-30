@@ -20,6 +20,9 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
+  disease:
+    influenza: Influenza
+    dengue: Dengue Fever
   home:
     title: Infection Map
     inform: Record
@@ -33,6 +36,7 @@ en:
     title: Infection Map
     search_location: Waiting for location...
   events:
+    disease: Disease
     title: All Events
     longitude: Longitude
     latitude: Latitude
