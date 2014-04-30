@@ -279,49 +279,37 @@ $(document).ready(function() {
         alert("There is no satellite data for your location. The app will work only with user-generated data.");
         map.init(new google.maps.LatLng(35.632291, 139.881371));
       }
-    });
-  } else {
-    alert("No support for location information. The app will work only with what is available around Tokyo.");
-    map.init(new google.maps.LatLng(35.632291, 139.881371));
-  }
 
-  var waitingTag = document.querySelector("#waiting")
-  if (waitingTag) {
-    $(waitingTag).remove();
-  }
+      /**
+       * Panes.
+       */
+      var helpSunny = '<font style="color:#FDDD29;font-size:2em">●</font> Best sunlight.';
+      var helpMODIS = '<font style="color:rgba(0, 0, 255, 1);font-size:2em">●</font> Very Cloudy<br/>'
+        + '<font style="color:rgba(0, 255, 0, 1);font-size:2em">●</font> Cloudy<br/>'
+        + '<font style="color:rgba(255, 255, 0, 1);font-size:2em">●</font> Sunny<br/>'
+        + '<font style="color:rgba(255, 0, 0, 1);font-size:2em;baseline-shift:sub">●</font> Very Sunny';
 
-  //map.updateMap(map.dataServer, map.root);
-
-  /**
-   * Panes.
-   */
-  var helpSunny = '<font style="color:#FDDD29;font-size:2em">●</font> Best sunlight.';
-  var helpMODIS = '<font style="color:rgba(0, 0, 255, 1);font-size:2em">●</font> Very Cloudy<br/>'
-    + '<font style="color:rgba(0, 255, 0, 1);font-size:2em">●</font> Cloudy<br/>'
-    + '<font style="color:rgba(255, 255, 0, 1);font-size:2em">●</font> Sunny<br/>'
-    + '<font style="color:rgba(255, 0, 0, 1);font-size:2em;baseline-shift:sub">●</font> Very Sunny';
-/*
-  var overlayControlPane = map.makeItemizedPane("overlay", [
-      {
-        "title": "ON/OFF",
-        "action": function() {
-          if (map.heatMap == undefined) {
-            $.jGrowl("Sorry! The sunchine map is not ready. Please try again in a few seconds.");
-            return
-          }
-          if (map.heatMap.getMap() == undefined || map.heatMap.getMap() == null) {
-            $(".map-section-text").parent().parent("div").show();
-            map.heatMap.setMap(map.root);
-          } else {
-            $(".map-section-text").parent().parent("div").hide();
-            map.heatMap.setMap(null);
-          }
-        },
-        "image": "images/layer-icon.png",
-        "imageSize": { "width": 32 },
-        "itemExtraClass": ["map-pane-item-horizontal"],
-        "itemExtraAttr": { "data-intro": 'Show and hide the sun map', "data-step": '1', "data-position": "top" }
-      },
+      var overlayControlPane = map.makeItemizedPane("overlay", [
+          {
+            "title": "ON/OFF",
+          "action": function() {
+            if (map.heatMap == undefined) {
+              $.jGrowl("Sorry! The sunchine map is not ready. Please try again in a few seconds.");
+              return
+            }
+            if (map.heatMap.getMap() == undefined || map.heatMap.getMap() == null) {
+              $(".map-section-text").parent().parent("div").show();
+              map.heatMap.setMap(map.root);
+            } else {
+              $(".map-section-text").parent().parent("div").hide();
+              map.heatMap.setMap(null);
+            }
+          },
+          "image": "images/layer-icon.png",
+          "imageSize": { "width": 32 },
+          "itemExtraClass": ["map-pane-item-horizontal"],
+          "itemExtraAttr": { "data-intro": 'Show and hide the sun map', "data-step": '1', "data-position": "top" }
+          },
       {
         "title": "Sunny Places",
         "action": function() {
@@ -329,8 +317,8 @@ $(document).ready(function() {
           var gradient = [
             'rgba(0, 0, 0, 1)',
             '#FDDD29'
-          ]
-          map.heatMap.setOptions({ gradient: gradient });
+              ]
+              map.heatMap.setOptions({ gradient: gradient });
         },
         "image": "images/sunny.png",
         "imageSize": { "width": 32 },
@@ -346,8 +334,8 @@ $(document).ready(function() {
             'rgba(0, 255, 0, 1)',
             'rgba(255, 255, 0, 1)',
             'rgba(255, 0, 0, 1)'
-          ]
-          map.heatMap.setOptions({ gradient: gradient });
+              ]
+              map.heatMap.setOptions({ gradient: gradient });
         },
         "image": "images/satellite.png",
         "imageSize": { "width": 32 },
@@ -381,36 +369,46 @@ $(document).ready(function() {
         "imageSize": { "width": 32 },
         "itemExtraClass": ["map-pane-item-horizontal"]
       }
-  ], "map-pane-bottom");
+      ], "map-pane-bottom");
 
-  var mapLegendPane = map.makeTextPane("map-legend", [
-      {
-        "content": helpMODIS
-      }
-  ], "map-pane-right");
-*/
-  /**
-   * Layout.
-   */
-  /*
-  var config = {
-    "panes": [
-      {
-        "name": "overlay",
-        "position": google.maps.ControlPosition.BOTTOM_CENTER,
-        "pane": overlayControlPane
-      },
-      {
-        "name": "map-legend",
-        "position": google.maps.ControlPosition.RIGHT_CENTER,
-        "pane": mapLegendPane
-      }
-    ]
-  };
-  $.each(config["panes"], function(key, value) {
-    map.registerPane(value["name"], value["position"], value["pane"]);
-  });
-      */
+      var mapLegendPane = map.makeTextPane("map-legend", [
+          {
+            "content": helpMODIS
+          }
+          ], "map-pane-right");
+
+      /**
+       * Layout.
+       */
+      var config = {
+        "panes": [
+        {
+          "name": "overlay",
+          "position": google.maps.ControlPosition.BOTTOM_CENTER,
+          "pane": overlayControlPane
+        },
+        {
+          "name": "map-legend",
+          "position": google.maps.ControlPosition.RIGHT_CENTER,
+          "pane": mapLegendPane
+        }
+        ]
+      };
+      $.each(config["panes"], function(key, value) {
+        //map.registerPane(value["name"], value["position"], value["pane"]);
+      });
+    });
+  } else {
+    alert("No support for location information. The app will work only with what is available around Tokyo.");
+    map.init(new google.maps.LatLng(35.632291, 139.881371));
+  }
+
+  var waitingTag = document.querySelector("#waiting")
+    if (waitingTag) {
+    $(waitingTag).remove();
+  }
+
+  //map.updateMap(map.dataServer, map.root);
 
 });
 
