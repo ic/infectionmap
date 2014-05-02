@@ -6,6 +6,12 @@ jp:
     title: みんなでインフルエンザーを見ようへようこそ
     inform: 申告する
     map: ハザードMap
+  project:
+    title: Infection Map
+  disclaimer:
+    title: 免責事項
+  contact:
+    title: お問い合わせ
   inform:
     title: みんなでインフルエンザーを見ようへようこそ
     explanation: このサイトはインフルエンザに感染した方が、感染を申告していただくことでインフルエンザの感染状況を表示するサイトです。 以下のボタンをクリックしていただくことで申告が完了いたします。
@@ -23,6 +29,9 @@ jp:
   navigation:
     map: ハザードMapへ
     home: ホーム
+    project: プロジェクト情報
     events: 全イベント
     inform: 登録
+    contact: お問い合わせ
+    disclaimer: 免責事項
 

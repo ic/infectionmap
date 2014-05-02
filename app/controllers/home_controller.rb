@@ -1,4 +1,5 @@
 class HomeController < ApplicationController
+
   def index
   end
 
@@ -7,4 +8,15 @@ class HomeController < ApplicationController
 
   def hazard
   end
+
+  def project
+  end
+
+  def contact
+  end
+
+  def disclaimer
+  end
+
 end
+

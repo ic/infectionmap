@@ -27,6 +27,12 @@ en:
     title: Infection Map
     inform: Record
     map: Hazard Map
+  project:
+    title: Infection Map
+  disclaimer:
+    title: Disclaimer
+  contact:
+    title: Contact Information
   inform:
     title: Infection Map
     explanation: TODO
@@ -44,6 +50,9 @@ en:
   navigation:
     map: Hazard Map
     home: Home
+    project: Our Project
     events: Events List
     inform: Record
+    contact: Contact
+    disclaimer: Disclaimer
 

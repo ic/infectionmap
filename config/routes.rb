@@ -1,10 +1,16 @@
 Rails.application.routes.draw do
 
+  # Temporary
   get  'events' => 'event#index'
+
+  # Needed
   post 'event'  => 'event#create'
 
   get 'inform' => 'home#inform'
   get 'hazard' => 'home#hazard'
+  get 'project' => 'home#project'
+  get 'contact' => 'home#contact'
+  get 'disclaimer' => 'home#disclaimer'
 
   root 'home#index'
 

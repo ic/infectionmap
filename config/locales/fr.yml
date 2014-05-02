@@ -6,6 +6,12 @@ fr:
     title: Infection Map
     inform: Informer
     map: Carte des infections
+  project:
+    title: Infection Map
+  disclaimer:
+    title: Avertissement sur l'utilisation des données du projet «Infection Map»
+  contact:
+    title: Contact
   inform:
     title: Infection Map
     explanation: TODO
@@ -23,6 +29,9 @@ fr:
   navigation:
     map: Carte des infections
     home: Acceuil
+    project: Notre projet
     events: Liste des événements
     inform: Informer
+    contact: Contact
+    disclaimer: Avertissement
 

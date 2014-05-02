@@ -31,9 +31,11 @@
               %a{href: "/?locale=#{l}"}
                 = l.to_s
           %li
-            %a{href: ''}
-              お問い合わせ
+            = link_to(I18n.t('navigation.home'), root_path)
           %li
-            %a{href: ''}
-              免責事項
+            = link_to(I18n.t('navigation.project'), project_path)
+          %li
+            = link_to(I18n.t('navigation.contact'), contact_path)
+          %li
+            = link_to(I18n.t('navigation.disclaimer'), disclaimer_path)
 
