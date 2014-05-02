@@ -12,6 +12,12 @@ class HomeController < ApplicationController
   def project
   end
 
+  def influenza
+  end
+
+  def dengue
+  end
+
   def contact
   end
 

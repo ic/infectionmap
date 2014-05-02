@@ -29,6 +29,19 @@ en:
     map: Hazard Map
   project:
     title: Infection Map
+    part1:
+    part2:
+    part3:
+  influenza:
+    title: Influenza
+    part1: 
+    part2:
+    part3:
+  dengue:
+    title: Dengue Fever
+    part1:
+    part2:
+    part3:
   disclaimer:
     title: Disclaimer
   contact:

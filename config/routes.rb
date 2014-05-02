@@ -4,10 +4,12 @@ Rails.application.routes.draw do
   get  'events' => 'event#index'
 
   # Needed
-  post 'event'  => 'event#create'
-
   get 'inform' => 'home#inform'
   get 'hazard' => 'home#hazard'
+
+  post 'event'  => 'event#create'
+  get 'influenza' => 'home#influenza'
+  get 'denguefever' => 'home#dengue'
   get 'project' => 'home#project'
   get 'contact' => 'home#contact'
   get 'disclaimer' => 'home#disclaimer'

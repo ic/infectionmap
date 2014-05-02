@@ -8,6 +8,19 @@ fr:
     map: Carte des infections
   project:
     title: Infection Map
+    part1:
+    part2:
+    part3:
+  influenza:
+    title: Grippe
+    part1: 
+    part2:
+    part3:
+  dengue:
+    title: Fièvre de Dengue
+    part1:
+    part2:
+    part3:
   disclaimer:
     title: Avertissement sur l'utilisation des données du projet «Infection Map»
   contact:
