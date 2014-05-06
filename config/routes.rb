@@ -13,6 +13,7 @@ Rails.application.routes.draw do
   get 'project' => 'home#project'
   get 'contact' => 'home#contact'
   get 'disclaimer' => 'home#disclaimer'
+  get 'faq' => 'home#faq'
 
   root 'home#index'
 

@@ -1,6 +1,10 @@
 %h1
   = I18n.t 'influenza.title'
 
+%div{class: :waiting, id: :waiting}
+  = I18n.t('hazard.search_location')
+%div{id: 'map-canvas'}
+
 %p
   = I18n.t 'influenza.part1'
 

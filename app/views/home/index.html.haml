@@ -1,4 +1,19 @@
-%div{class: :waiting, id: :waiting}
-  = I18n.t('hazard.search_location')
-%div{id: 'map-canvas'}
+%table{class: :mosaic}
+  %tr
+    %td
+    %td{class: 'light-red'}
+      = link_to I18n.t('navigation.project'), project_path
+    %td
+  %tr
+    %td{class: 'red'}
+      = link_to I18n.t('navigation.influenza'), influenza_path
+    %td{class: 'dark-red'}
+      = image_tag 'logo.png', width: '274px', height: '61px', alt: 'Infection Map', title: 'Infection Map'
+    %td{class: 'red'}
+      = link_to I18n.t('navigation.dengue'), denguefever_path
+  %tr
+    %td
+    %td{class: 'light-red'}
+      = link_to I18n.t('navigation.faq'), faq_path
+    %td
 

@@ -24,5 +24,8 @@ class HomeController < ApplicationController
   def disclaimer
   end
 
+  def faq
+  end
+
 end
 

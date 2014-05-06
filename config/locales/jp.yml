@@ -25,6 +25,8 @@ jp:
     title: 免責事項
   contact:
     title: お問い合わせ
+  faq:
+    title: よくある質問
   inform:
     title: みんなでインフルエンザーを見ようへようこそ
     explanation: このサイトはインフルエンザに感染した方が、感染を申告していただくことでインフルエンザの感染状況を表示するサイトです。 以下のボタンをクリックしていただくことで申告が完了いたします。
@@ -47,4 +49,7 @@ jp:
     inform: 登録
     contact: お問い合わせ
     disclaimer: 免責事項
+    faq: よくある質問
+    influenza: インフルエンザ
+    dengue: デンゲ熱
 

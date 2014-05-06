@@ -46,6 +46,8 @@ en:
     title: Disclaimer
   contact:
     title: Contact Information
+  faq:
+    title: FAQ
   inform:
     title: Infection Map
     explanation: TODO
@@ -68,4 +70,7 @@ en:
     inform: Record
     contact: Contact
     disclaimer: Disclaimer
+    faq: FAQ
+    influenza: Influenza
+    dengue: Dengue Fever
 

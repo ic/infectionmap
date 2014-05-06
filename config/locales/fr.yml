@@ -1,7 +1,7 @@
 fr:
   disease:
     influenza: Grippe
-    dengue: Fièvre de Dengue
+    dengue: Dengue
   home:
     title: Infection Map
     inform: Informer
@@ -17,7 +17,7 @@ fr:
     part2:
     part3:
   dengue:
-    title: Fièvre de Dengue
+    title: Dengue
     part1:
     part2:
     part3:
@@ -25,6 +25,8 @@ fr:
     title: Avertissement sur l'utilisation des données du projet «Infection Map»
   contact:
     title: Contact
+  faq:
+    title: Questions fréquentes
   inform:
     title: Infection Map
     explanation: TODO
@@ -47,4 +49,7 @@ fr:
     inform: Informer
     contact: Contact
     disclaimer: Avertissement
+    faq: Questions fréquentes
+    influenza: Grippe
+    dengue: Dengue
 
