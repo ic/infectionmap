@@ -11,6 +11,8 @@ crowdy.map = crowdy.map || function() {
   this.dataServer = window.location.protocol + "//" + window.location.host;
   this.panes = {};
   this.heatMapCache = {};
+  this.defaultLat = 35.632291;
+  this.defaultLon = 139.881371;
   crowdy.map.memo = this;
 };
 
@@ -34,7 +36,7 @@ crowdy.map.prototype.buildMap = function(options) {
 
 crowdy.map.prototype.init = function(center) {
   var mapOptions = {
-    center: center, //new google.maps.LatLng(35.632291, 139.881371), // Tokyo Disney Land
+    center: center,
     zoom: 15,
     maxZoom: 12,
     minZoom: 5,
@@ -271,7 +273,7 @@ crowdy.map.prototype.setupOnLocation = function(position) {
     });
   } else {
     alert("There is no satellite data for your location. The app will work only with user-generated data.");
-    map.init(new google.maps.LatLng(35.632291, 139.881371));
+    map.init(new google.maps.LatLng(crowdy.map.defaultLat, crowdy.map.defaultLon));
   }
 
   /**

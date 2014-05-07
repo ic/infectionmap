@@ -34,9 +34,8 @@ en:
     part3:
   influenza:
     title: Influenza
-    part1: 
-    part2:
-    part3:
+    part1: Any influenza occurrence is shown on the map for 2 weeks only. Older records are deleted as the disease naturally disappears after this period.
+    part2: You can only see Influenza reports around a given location, without much accuracy for privacy reasons. Zooms are available up to a level that balance accuracy and privacy.
   dengue:
     title: Dengue Fever
     part1:
@@ -53,6 +52,15 @@ en:
     explanation: TODO
     thanks: Thank you for your participation.
     search_location: Waiting for location...
+    disease: Disease
+    gender: Gender
+    male: Male
+    female: Female
+    age: Age
+    type: Type
+    a: A
+    b: B
+    other: Other
   hazard:
     title: Infection Map
     search_location: Waiting for location...

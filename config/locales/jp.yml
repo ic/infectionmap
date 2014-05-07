@@ -20,7 +20,6 @@ jp:
     title: デンゲ熱
     part1: 申告された情報は三週間後に感染状況の表示から削除されます。
     part2: 入力場所を中心とした地域の流行状況が表示されます。拡大表示はできません。
-    part3: デング熱の感染申告 性別： 年齢：
   disclaimer:
     title: 免責事項
   contact:
@@ -32,6 +31,15 @@ jp:
     explanation: このサイトはインフルエンザに感染した方が、感染を申告していただくことでインフルエンザの感染状況を表示するサイトです。 以下のボタンをクリックしていただくことで申告が完了いたします。
     thanks: ご協力ありがとうございました。
     search_location: 置情報収得中...
+    disease: 病気名
+    gender: 性別
+    male: 男
+    female: 女
+    age: 年齢
+    type: タイプ
+    a: A
+    b: B
+    other: その他
   hazard:
     title: みんなでインフルエンザーを見ようへようこそ
     search_location: 置情報収得中...

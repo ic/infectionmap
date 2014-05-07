@@ -15,7 +15,6 @@ fr:
     title: Grippe
     part1: 
     part2:
-    part3:
   dengue:
     title: Dengue
     part1:
@@ -32,6 +31,15 @@ fr:
     explanation: TODO
     thanks: Merci pour votre participation.
     search_location: En attente de la position...
+    disease: Maladie
+    gender: Sexe
+    male: Homme
+    female: Femme
+    age: Âge
+    type: Type
+    a: A
+    b: B
+    other: Autre
   hazard:
     title: Infection Map
     search_location: En attente de la position...

@@ -1,5 +1,18 @@
 :javascript
   $(document).ready(function () {
+    var disease = document.querySelector('#disease');
+    if (disease) {
+      disease.onchange = function (selection) {
+        var dtype = document.querySelector('#disease_type');
+        if (!dtype) { return; };
+        if (selection.target.value == "influenza") {
+          $(dtype).prop("disabled", false);
+        } else {
+          $(dtype).prop("disabled", true);
+        }
+      };
+    }
+
     var msgPack = {
       "confirm": "Do you confirm the disease?",
       "button": "Inform"
@@ -42,26 +55,53 @@
     };
 
     if (crowdy && crowdy.map) {
-    debugger;
-      setPosition(crowdy.map.currentLocation.coords.latitude, crowdy.map.currentLocation.coords.longitude);
+      if (crowdy.map.currentLocation) {
+        setPosition(crowdy.map.currentLocation.coords.latitude, crowdy.map.currentLocation.coords.longitude);
+      } else {
+        setPosition(crowdy.map.defaultLat, crowdy.map.defaultLon);
+      }
     } else if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
         setPosition(position.coords.latitude, position.coords.longitude);
       });
     }
-
   });
 
 %p
   = I18n.t('inform.explanation')
 
 %form{action: 'event', method: :post}
+  %p
+    %label{for: :disease}
+      = I18n.t 'inform.disease'
+    %select{id: :disease, name: :disease}
+      %option{value: :influenza}
+        = I18n.t 'disease.influenza'
+      %option{value: :dengue}
+        = I18n.t 'disease.dengue'
+  %p
+    %label{for: :gender}
+      = I18n.t 'inform.gender'
+    %select{name: :gender}
+      %option{value: :male}
+        = I18n.t 'inform.male'
+      %option{value: :female}
+        = I18n.t 'inform.female'
+  %p
+    %label{for: :age}
+      = I18n.t 'inform.age'
+    %input{type: :number, name: :age, id: :age, step: 1, min: 0}
+  %p
+    %label{for: :disease_type}
+      = I18n.t 'inform.type'
+    %select{id: :disease_type, name: :disease_type}
+      %option{value: :a}
+        = I18n.t 'inform.a'
+      %option{value: :b}
+        = I18n.t 'inform.b'
+      %option{value: :other}
+        = I18n.t 'inform.other'
   %input{type: :hidden, name: :locale, value: I18n.locale}
-  %select{name: :disease}
-    %option{value: :influenza}
-      = I18n.t 'disease.influenza'
-    %option{value: :dengue}
-      = I18n.t 'disease.dengue'
   %input{type: :hidden, name: :lat, value: '', id: :latitude}
   %input{type: :hidden, name: :lon, value: '', id: :longitude}
   %input{type: :submit, value: I18n.t('inform.search_location'), id: 'button', disabled: true}
