@@ -83,6 +83,8 @@
     %label{for: :gender}
       = I18n.t 'inform.gender'
     %select{name: :gender}
+      %option{value: ""}
+        = ""
       %option{value: :male}
         = I18n.t 'inform.male'
       %option{value: :female}
@@ -95,6 +97,8 @@
     %label{for: :disease_type}
       = I18n.t 'inform.type'
     %select{id: :disease_type, name: :disease_type}
+      %option{value: ""}
+        = ""
       %option{value: :a}
         = I18n.t 'inform.a'
       %option{value: :b}

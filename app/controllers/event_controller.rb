@@ -3,10 +3,23 @@ class EventController < ApplicationController
   def create
     logger.info params
     e = Event.new
+
+    # Required
     e.ip = request.ip.to_s
     e.longitude = params[:lon]
     e.latitude  = params[:lat]
     e.event_type = params[:disease]
+
+    # Optional
+    e.gender = params[:gender] unless params[:gender].blank?
+    begin
+      e.age = params[:age].to_i unless params[:age].blank?
+    rescue => ex
+      logger.error ex.inspect
+      # Ignored
+    end
+    e.event_subtype = params[:disease_type] unless params[:disease_type].blank?
+
     unless e.save
       logger.warn("Failed to create event with: params=#{params.inspect}, IP=#{request.ip}, err=#{e.errors.inspect}")
     end

@@ -17,10 +17,12 @@
     %div{id: 'container'}
       %div{id: 'header'}
         %div{id: 'logo'}
-          = image_tag 'logo.png', width: '274px', height: '61px', alt: 'Infection Map', title: 'Infection Map'
+          %a{href: root_path}
+            = image_tag 'logo.png', width: '274px', height: '61px', alt: 'Infection Map', title: 'Infection Map'
         %div{id: 'submitbutton'}
           %a{href: inform_path}
             = image_tag 'button.png', width: '56px', height: '57px', alt: 'Declaration Button', title: 'Declare'
+          %a{href: inform_path}
             = I18n.t 'home.inform'
       %div{id: 'contents'}
         = yield
