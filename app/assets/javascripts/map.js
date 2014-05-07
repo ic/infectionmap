@@ -7,7 +7,7 @@ var crowdy = crowdy || {};
  */
 crowdy.map = crowdy.map || function() {
   this.root = {};
-  this.currentLocation;
+  this.currentLocation; // Position object, if defined.
   this.dataServer = window.location.protocol + "//" + window.location.host;
   this.panes = {};
   this.heatMapCache = {};
@@ -254,12 +254,10 @@ crowdy.map.TextPaneItem = function() {
 
 crowdy.map.prototype.setupOnLocation = function(position) {
   var map = crowdy.map.memo;
-
   map.currentLocation = position; // Memo
-  console.log("Memo for: " + position.coords);
 
   // Set current location only If current location is in available area.
-  if (21 < position.coords.latitude && position.coords.latitude < 49
+  if (position && 21 < position.coords.latitude && position.coords.latitude < 49
       && 121 < position.coords.longitude && position.coords.longitude < 149) {
     var center = new google.maps.LatLng(
         position.coords.latitude,
@@ -393,16 +391,20 @@ crowdy.map.prototype.setupOnLocation = function(position) {
   $.each(config["panes"], function(key, value) {
     //map.registerPane(value["name"], value["position"], value["pane"]);
   });
+
+  var waitingTag = document.querySelector("#waiting");
+  if (waitingTag) {
+    $(waitingTag).hide();
+  }
+
 };
 
-/**
- * Application's map.
- */
-$(document).ready(function() {
-
-  // TODO do not regenerate the map after the first time.
-
-  var map = new crowdy.map;
+crowdy.map.prototype.setup = function() {
+  console.log("Map setup");
+  var canvasExists = document.querySelector("#map-canvas");
+  if (!canvasExists) {
+    return;
+  }
 
   /**
    * Use current location if available.
@@ -415,13 +417,21 @@ $(document).ready(function() {
     }
   } else {
     alert("No support for location information. The app will work only with what is available around Tokyo.");
-    map.init(new google.maps.LatLng(35.632291, 139.881371));
+    map.setupOnLocation();
   }
+};
 
-  var waitingTag = document.querySelector("#waiting");
-  if (waitingTag) {
-    $(waitingTag).remove();
-  }
+/**
+ * Application's map.
+ */
+$(document).ready(function() {
+
+  var map = new crowdy.map;
+
+  map.setup();
+
+  // On reload, refresh the map.
+  window.document.load = map.setup();
 
 });
 

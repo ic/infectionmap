@@ -20,16 +20,15 @@
       button.onclick = function () { return confirm(msgPack.confirm); };
     }
 
-    if (navigator.geolocation) {
-      navigator.geolocation.getCurrentPosition(function(position) {
+    var setPosition = function(latitude, longitude) {
         var lat = document.querySelector("#latitude");
         var lon = document.querySelector("#longitude");
-        if (21 < position.coords.latitude && position.coords.latitude < 49
-          && 121 < position.coords.longitude && position.coords.longitude < 149) {
+        if (21 < latitude && latitude < 49
+          && 121 < longitude && longitude < 149) {
           if (lat)
-            lat.value = position.coords.latitude;
+            lat.value = latitude;
           if (lon)
-            lon.value = position.coords.longitude;
+            lon.value = longitude;
         } else {
           if (lat)
             lat.value = 35.632291;
@@ -40,6 +39,14 @@
           $(button).removeAttr("disabled");
           button.value = msgPack.button;
         }
+    };
+
+    if (crowdy && crowdy.map) {
+    debugger;
+      setPosition(crowdy.map.currentLocation.coords.latitude, crowdy.map.currentLocation.coords.longitude);
+    } else if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        setPosition(position.coords.latitude, position.coords.longitude);
       });
     }
 
