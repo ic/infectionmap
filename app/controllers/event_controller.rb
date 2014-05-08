@@ -24,7 +24,7 @@ class EventController < ApplicationController
       logger.warn("Failed to create event with: params=#{params.inspect}, IP=#{request.ip}, err=#{e.errors.inspect}")
     end
     respond_to do |format|
-      format.html { redirect_to :root }
+      format.html { redirect_to redirect_target(e.event_type) }
       format.json { render json: {}, status: :ok }
     end
   end
@@ -41,6 +41,15 @@ class EventController < ApplicationController
           weight: 1
         }
       }, status: :ok }
+    end
+  end
+
+  private
+  def redirect_target(event)
+    case event
+    when 'influenza' then :influenza
+    when 'dengue' then :denguefever
+    else :root
     end
   end
 
