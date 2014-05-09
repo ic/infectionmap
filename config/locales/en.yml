@@ -29,9 +29,9 @@ en:
     map: Hazard Map
   project:
     title: Infection Map
-    part1:
-    part2:
-    part3:
+    part1: "Infection Map aims at informing people in real-time about risks of infections by viral diseases, such as influenza and Dengue fever. Infection Map allows people to check the current infections around their current position, and observe the risks visually on a map, so they can assess the situation wherever they need go. The data shown by Infection Map is a compilation of real-time data input by users, and satellite data relevant to the spread of the observed diseases. The data currently includes temperature records from the AQUA satellite (MODIS) and humidity records from the precipitation data collected by the SHIZUKU satellite. Temperatures and humidity are indeed correlated to the spread capabilities of influenza, and temperature is related to the Dengue fever. The strengths of Infection Map are the robustness of its data, reported by patients themselves, and its foundation on actual research on the watched diseases: The infection map data is calculated on known models, and updated dynamically. At this point, the satellite data is static, based on a sample of past data obtained from the NASA and JAXA. Eventually, the data can be refreshed dynamically, notably thanks to the collaboration from other ISAC2014 projects."
+    part2: Infection Map becomes more accurate and useful as people report their conditions! So please participate! Collected data is used solely for reporting on the map and building statistics. The data is anonymous. Each report contains a disease name, a time, and a location. Optional data is gender and age.
+    part3: Launched from the International Space Apps challenge 2014 with support from the NASA and JAXA.
   influenza:
     title: Influenza
     part1: Any influenza occurrence is shown on the map for 2 weeks only. Older records are deleted as the disease naturally disappears after this period.
