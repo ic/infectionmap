@@ -54,16 +54,12 @@
         }
     };
 
-    if (crowdy && crowdy.map) {
-      if (crowdy.map.currentLocation) {
-        setPosition(crowdy.map.currentLocation.coords.latitude, crowdy.map.currentLocation.coords.longitude);
-      } else {
-        setPosition(crowdy.map.defaultLat, crowdy.map.defaultLon);
-      }
-    } else if (navigator.geolocation) {
+    if (navigator.geolocation) {
       navigator.geolocation.getCurrentPosition(function(position) {
         setPosition(position.coords.latitude, position.coords.longitude);
       });
+    } else {
+      setPosition(crowdy.map.defaultLat, crowdy.map.defaultLon);
     }
   };
 
