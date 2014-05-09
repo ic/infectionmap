@@ -38,9 +38,8 @@ en:
     part2: You can only see Influenza reports around a given location, without much accuracy for privacy reasons. Zooms are available up to a level that balance accuracy and privacy.
   dengue:
     title: Dengue Fever
-    part1:
-    part2:
-    part3:
+    part1: Any fever occurrence is shown on the map for 3 weeks only. Older records are deleted as the disease naturally disappears after this period.
+    part2: You can only see Dengue fever reports around a given location, without much accuracy for privacy reasons. Zooms are available up to a level that balance accuracy and privacy.
   disclaimer:
     title: Disclaimer
   contact:

@@ -8,18 +8,17 @@ fr:
     map: Carte des infections
   project:
     title: Infection Map
-    part1:
-    part2:
-    part3:
+    part1: "Infection Map a pour objectif l'information des personnes en temps réel, au sujet des risques d'infections par certaines maladies virales, telles que la grippe et la dengue. Infection Map permet aux utilisateurs de consulter l'état actuel des infections autour de leur position actuelle, et de évaluer les risques potientiels atours d'un endroit où qu'il désirent connaître. Les données affichées sur les cartes d'Infection Map sont construites à partir des entrées fournies par les utilisateurs, correllées avec des données scientifiques utiles à la prédiction de la propagation des maladies observées. Les données utilisées actuellement contiennet les enregistrements de températures du satellite AQUA (MODIS), et une estimation de l'humidité ambiante, basée sur les enregistrements de précipitations du satellite SHIZUKU. La température et l'humidité sont des facteurs correllés à la propagation de la grippe, et la température seulement est couplées avec la dengue. Les atouts d'Infection Map sont ainsi la robustesse des données, construites par les patients eux-mêmes, et une fondation sur des modèles des maladies observées. À l'heure actuelle, les données des satellites sont statiques, chargées sur un échantillon de données obtenues lors de l'événement ISAC2014. Des travaux en cours ont pour objectif de consulter dynamiquement les données fournies par la NASA et la JAXA, notamment par une collaboration avec un autre projet d'ISAC2014."
+    part2: "Infection Map devient plus précis et utile au fur et à mesure que les données sont accumulées. Votre participation est importante! Pour votre information, les données collectées sont uniquement utilisées pour construire la carte des infections, et des statistiques génériques. Les données sont anonymes. Chaque participation nécessite un nom de maladie, une heure de déclaration et des coordonnées géographiques (même imprécises). Des données optionnelles sont aussi acceptées pour le sexe et l'âge."
+    part3: "Lancement dès l'International Space Apps challenge 2014, avec le support et la participation de la NASA et de la JAXA."
   influenza:
     title: Grippe
-    part1: 
-    part2:
+    part1: Les données visibles sur la carte sont actuelles. Tout enregistrement plus ancien que 2 semaines disparait de la carte, car la maladie disparait naturellement au delà de cette période.
+    part2: "Vous pouvez observer les données de la maladie autour d'une position donnée, avec une précision assez faible pour la protection des données privées. La magnification sur la carte est disponible jusqu'à un niveau acceptable pour fournir information utile, tout en préservant l'anonymat."
   dengue:
     title: Dengue
-    part1:
-    part2:
-    part3:
+    part1: Les données visibles sur la carte sont actuelles. Tout enregistrement plus ancien que 3 semaines disparait de la carte, car la maladie disparait naturellement au delà de cette période.
+    part2: "Vous pouvez observer les données de la maladie autour d'une position donnée, avec une précision assez faible pour la protection des données privées. La magnification sur la carte est disponible jusqu'à un niveau acceptable pour fournir information utile, tout en préservant l'anonymat."
   disclaimer:
     title: Avertissement sur l'utilisation des données du projet «Infection Map»
   contact:
