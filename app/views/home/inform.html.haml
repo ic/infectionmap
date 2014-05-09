@@ -1,5 +1,5 @@
 :javascript
-  $(document).ready(function () {
+  var setup = function() {
     var disease = document.querySelector('#disease');
     if (disease) {
       disease.onchange = function (selection) {
@@ -65,7 +65,10 @@
         setPosition(position.coords.latitude, position.coords.longitude);
       });
     }
-  });
+  };
+
+  $(document).ready(setup);
+  $(document).load(setup);
 
 %p
   = I18n.t('inform.explanation')

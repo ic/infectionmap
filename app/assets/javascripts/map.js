@@ -402,7 +402,6 @@ crowdy.map.prototype.setupOnLocation = function(position) {
 };
 
 crowdy.map.prototype.setup = function() {
-  console.log("Map setup");
   var canvasExists = document.querySelector("#map-canvas");
   if (!canvasExists) {
     return;
@@ -412,28 +411,14 @@ crowdy.map.prototype.setup = function() {
    * Use current location if available.
    */
   if (navigator.geolocation) {
-    if (map.currentLocation) {
-      map.setupOnLocation(map.currentLocation);
+    if (crowdy.map.memo.currentLocation) {
+      crowdy.map.memo.setupOnLocation(crowdy.map.memo.currentLocation);
     } else {
-      navigator.geolocation.getCurrentPosition(map.setupOnLocation);
+      navigator.geolocation.getCurrentPosition(crowdy.map.memo.setupOnLocation);
     }
   } else {
     alert("No support for location information. The app will work only with what is available around Tokyo.");
-    map.setupOnLocation();
+    crowdy.map.memo.setupOnLocation();
   }
 };
-
-/**
- * Application's map.
- */
-$(document).ready(function() {
-
-  var map = new crowdy.map;
-
-  map.setup();
-
-  // On reload, refresh the map.
-  window.document.load = map.setup();
-
-});
 
