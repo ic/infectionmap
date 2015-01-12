@@ -1,16 +1,17 @@
+body, html {
+  height: 100%;
+  background-color: #FBFAE8;
+}
+
+
 a {
   font-size: 10px;
-  color: #FFF;
   text-decoration: underline;
+  color: #FFF;
 }
 
 a:focus, a:active, a:hover {
   text-decoration: none;
-}
-
-body, html {
-  height: 100%;
-  background-color: #FBFAE8;
 }
 
 #container {
@@ -123,5 +124,19 @@ td.dark-red {
 
 td.light-red {
   background-color: #C75D63;
+}
+
+.action-menu {
+  list-style-type: none;
+}
+
+.action-menu a {
+  font-size: 1em;
+  text-decoration: underline;
+  color: #000;
+}
+
+.action-menu a:focus, a:active, a:hover {
+  text-decoration: none;
 }
 
