@@ -12,6 +12,9 @@ gem 'haml-rails'
 gem 'devise', '~> 3.4.1'
 gem 'devise-encryptable', '~> 0.2.0'
 
+gem 'sidekiq', '~> 3.3.0'
+gem 'sidetiq', '~> 0.6.3'
+
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
