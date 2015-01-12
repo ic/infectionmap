@@ -73,14 +73,14 @@ class EventController < ApplicationController
   # PUBLIC, aggregated data for privacy protection.
   # GET /events.json
   def aggregates
-    @events = Event.all
+    @events = Aggregate.all
     respond_to do |format|
       format.json { render json: @events.collect{|e|
         {
-          disease: e.event_type,
+          disease: e.disease,
           lat: e.latitude,
           lon: e.longitude,
-          weight: 1
+          weight: e.weight,
         }
       }, status: :ok }
     end

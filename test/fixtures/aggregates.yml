@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  disease: MyString
+  lat: 1.5
+  lon: 1.5
+  weight: 1.5
+
+two:
+  disease: MyString
+  lat: 1.5
+  lon: 1.5
+  weight: 1.5
