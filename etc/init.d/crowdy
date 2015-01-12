@@ -1,4 +1,4 @@
-#! /bin/sh
+#! /usr/bin/env bash
 ### BEGIN INIT INFO
 # Provides:		crowdy
 # Required-Start:	$syslog $remote_fs
@@ -32,7 +32,10 @@ PID_DIR=/var/lock/crowdy
 mkdir -p $PID_DIR
 PIDFILE=$PID_DIR/unicorn.pid
 
-DAEMON="/usr/local/rvm/wrappers/ruby-2.0.0-p451/unicorn_rails --daemonize"
+. /usr/local/rvm/scripts/rvm
+rvm use ruby-2.1.5
+
+DAEMON="bundle exec unicorn --daemonize"
 DAEMON_ARGS="--config-file $CONFIG_FILE --env $CROWDY_ENV"
 
 set -e
