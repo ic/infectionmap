@@ -1,14 +1,17 @@
 Rails.application.routes.draw do
 
   devise_for :users
-  # Temporary
-  get  'events' => 'event#index'
+
+  # Public API to create and list events.
+  get 'events' => 'event#aggregates'
+  post 'event'  => 'event#create'
+  # Private, secured API to list events.
+  get '/research/events'  => 'event#index'
 
   # Needed
   get 'inform' => 'home#inform'
   get 'hazard' => 'home#hazard'
 
-  post 'event'  => 'event#create'
   get 'influenza' => 'home#influenza'
   get 'denguefever' => 'home#dengue'
   get 'project' => 'home#project'

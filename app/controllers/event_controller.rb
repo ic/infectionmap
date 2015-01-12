@@ -1,5 +1,7 @@
 class EventController < ApplicationController
 
+  before_action :authenticate_user!, except: [:aggregates]
+
   def create
     logger.info params
     e = Event.new
@@ -29,7 +31,26 @@ class EventController < ApplicationController
     end
   end
 
+  # PRIVATE, detailed data for the project research.
+  # GET /events.json
   def index
+    @events = Event.all
+    respond_to do |format|
+      format.html { render }
+      format.json { render json: @events.collect{|e|
+        {
+          disease: e.event_type,
+          lat: e.latitude,
+          lon: e.longitude,
+          weight: 1
+        }
+      }, status: :ok }
+    end
+  end
+
+  # PUBLIC, aggregated data for privacy protection.
+  # GET /events.json
+  def aggregates
     @events = Event.all
     respond_to do |format|
       format.html { render }
