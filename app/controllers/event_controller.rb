@@ -1,6 +1,6 @@
 class EventController < ApplicationController
 
-  before_action :authenticate_user!, except: [:aggregates]
+  before_action :authenticate_user!, except: [:create, :aggregates]
 
   def create
     logger.info params
@@ -40,8 +40,11 @@ class EventController < ApplicationController
       format.json { render json: @events.collect{|e|
         {
           disease: e.event_type,
+          type: e.event_subtype,
           lat: e.latitude,
           lon: e.longitude,
+          gender: e.gender,
+          age: e.age,
           weight: 1
         }
       }, status: :ok }
@@ -53,7 +56,6 @@ class EventController < ApplicationController
   def aggregates
     @events = Event.all
     respond_to do |format|
-      format.html { render }
       format.json { render json: @events.collect{|e|
         {
           disease: e.event_type,

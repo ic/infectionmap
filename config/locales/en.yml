@@ -65,11 +65,16 @@ en:
     search_location: Waiting for location...
   events:
     disease: Disease
+    type: Type
     title: All Events
     longitude: Longitude
     latitude: Latitude
     timezone: Timestamp (UTC)
+    gender: Gender
+    age: Age
   navigation:
+    login: Login
+    logout: Logout
     map: Hazard Map
     home: Home
     project: Our Project

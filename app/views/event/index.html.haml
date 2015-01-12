@@ -3,16 +3,25 @@
     %th
       = I18n.t('events.disease')
     %th
+      = I18n.t('events.type')
+    %th
       = I18n.t('events.longitude')
     %th
       = I18n.t('events.latitude')
+    %th
+      = I18n.t('events.gender')
+    %th
+      = I18n.t('events.age')
     %th
       = I18n.t('events.timezone')
   %tbody
   - @events.each do |e|
     %tr
       %td= e.event_type
+      %td= e.event_subtype
       %td= e.longitude
       %td= e.latitude
+      %td= e.gender
+      %td= e.age
       %td= e.created_at.strftime('%Y-%m-%d %H:%M:%S')
 

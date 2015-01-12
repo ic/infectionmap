@@ -45,11 +45,16 @@ jp:
     search_location: 置情報収得中...
   events:
     disease: 病気
+    type: タイプ
     title: 全イベント
     longitude: 軽度
     latitude: 緯度
     timezone: タイムスタンプ(UTC)
+    gender: 性別
+    age: 年齢
   navigation:
+    login: ログイン
+    logout: ログアウト
     map: ハザードMapへ
     home: ホーム
     project: プロジェクト情報

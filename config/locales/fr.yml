@@ -44,11 +44,16 @@ fr:
     search_location: En attente de la position...
   events:
     disease: Maladie
+    type: Type
     title: Tous les événements
     longitude: Longitude
     latitude: Latitude
     timezone: Heure (UTC)
+    gender: Sexe
+    age: Âge
   navigation:
+    login: Login
+    logout: Logout
     map: Carte des infections
     home: Acceuil
     project: Notre projet
