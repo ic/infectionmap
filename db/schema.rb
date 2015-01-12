@@ -14,15 +14,15 @@
 ActiveRecord::Schema.define(version: 20150112032620) do
 
   create_table "events", force: :cascade do |t|
-    t.string   "ip",            limit: 255
-    t.string   "latitude",      limit: 255
-    t.string   "longitude",     limit: 255
-    t.string   "event_type",    limit: 255
+    t.string   "ip"
+    t.string   "latitude"
+    t.string   "longitude"
+    t.string   "event_type"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "gender",        limit: 255
+    t.string   "gender"
     t.integer  "age"
-    t.string   "event_subtype", limit: 255
+    t.string   "event_subtype"
   end
 
   create_table "users", force: :cascade do |t|
