@@ -1,0 +1,5 @@
+Disease, Type, Latitude, Longitude, Gender, Age
+= CSV.generate do |csv|
+  - @events.each do |e|
+    - csv << [e.event_type, e.event_subtype, e.latitude, e.longitude, e.gender || '', e.age || '']
+

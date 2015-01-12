@@ -7,6 +7,7 @@ Rails.application.routes.draw do
   post 'event'  => 'event#create'
   # Private, secured API to list events.
   get '/research/events'  => 'event#index'
+  get '/research/events/export' => 'event#export'
 
   # Needed
   get 'inform' => 'home#inform'
