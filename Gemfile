@@ -9,7 +9,8 @@ gem 'therubyracer',  platforms: :ruby
 
 gem 'haml-rails'
 
-gem 'devise'
+gem 'devise', '~> 3.4.1'
+gem 'devise-encryptable', '~> 0.2.0'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
