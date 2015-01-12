@@ -24,6 +24,11 @@
             = image_tag 'button.png', width: '56px', height: '57px', alt: 'Declaration Button', title: 'Declare'
           %a{href: inform_path}
             = I18n.t 'home.inform'
+      %div{id: 'flash'}
+        %p{class: "notice"}
+          = notice
+        %p{class: "alert"}
+          = alert
       %div{id: 'contents'}
         = yield
       %div{id: 'footer'}
