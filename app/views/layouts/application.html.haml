@@ -47,6 +47,8 @@
             = link_to(I18n.t('navigation.disclaimer'), disclaimer_path)
           - if user_signed_in?
             %li
+              = link_to(I18n.t('navigation.events'), research_events_path)
+            %li
               = link_to(I18n.t('navigation.logout'), destroy_user_session_path)
           - else
             %li
