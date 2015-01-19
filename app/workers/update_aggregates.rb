@@ -124,8 +124,7 @@ class UpdateAggregates
   #
   sidekiq_options queue: 'default', retry: false, backtrace: true
 
-  # Weird syntax, but recommended to avoid the expensive #minutely.
-  recurrence { hourly.minute_of_hour(0, 10, 20, 30, 40, 50) }
+  recurrence { daily }
 
   include UpdateAggregatesGears
 end
