@@ -15,8 +15,8 @@ ActiveRecord::Schema.define(version: 20150112075840) do
 
   create_table "aggregates", force: :cascade do |t|
     t.string   "disease"
-    t.float    "latitude"
-    t.float    "longitude"
+    t.string   "latitude"
+    t.string   "longitude"
     t.float    "weight"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
